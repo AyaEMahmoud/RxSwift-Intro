@@ -79,3 +79,40 @@ observable.of("val1", "val2")
 print($0)
 }.disposed(by: disposeBag)
 ```
+
+### Traits
+- Single: will emit a single next event or an error event.
+- Completable: will emit completed event, or error event, but will not emit any next events.
+- Maybe: emits one event only, next, or maybe, or error.
+
+### Do Operator and Side Effects
+
+do inserts side effects that will handle a behaviour without changing the emitted event.
+
+```swift
+Observer.of("val1", "val2")
+.do(onNext: {element in 
+print($0) 
+}, onComplete: {element in 
+print($0)
+},onSubscribe: {element in 
+print($0)
+}, onSubscribed: {element in 
+print($0)
+}, onDispose: {element in 
+print($0)
+})
+```
+
+# Subjects
+> Comprise of two parts
+> - Observable "Can be subscribed to"
+> - Observer "Can receive new events"
+
+*This allows the observables with non finit sequances to add new elements and then emit them to subscribers*
+
+## Subject Types
+- Publish Subject
+- Behavoir Subject
+- Reply Subject
+- Variable
