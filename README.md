@@ -29,5 +29,53 @@ let episode: Observable<String> = Observable<String>.just("Episode1")
 - Rx methods are refered to as operators.
 
 
+```swift
+let originalTrilogy = Observable.of("Ep1", "Ep2", "Ep3")
+```
+**of: takes one or more values of the same type**
+- The complier will infer the type as observable of strings.
 
+```swift 
+let sequal = Observable.from(["Ep4, "Ep5"])
+```
+**from: takes an array of values and create an observable of the type of the array**
 
+```swift
+let observable = Observable<void>.empty()
+```
+
+**empty: creates an empty observable that only emits completed event**
+
+```swift
+let observable = Observable<Any>.never()
+```
+
+**never: creates observable that doesn't emit anything**
+
+## Subscribing to Observables
+
+```swift
+let observable = Observable.of("val1", "val2", "val3")
+observable.sunscribe {event in 
+print(event.element)
+}
+```
+
+- Subscribe takes a closure parameter that receives each element emited.
+- Each element is wrapped in the next event enum.
+
+```swift
+observable.subscribe(onNext: { element in 
+print(element)
+})
+```
+
+*Rx Swift has a **Dispose bag** we add subscribtions to a dispose bag and when its owner is about to be deallocated, it calls the dispose() on the subscribtions.*
+
+```swift
+let disposeBag = DisposeBag()
+observable.of("val1", "val2")
+.subscribe {
+print($0)
+}.disposed(by: disposeBag)
+```
